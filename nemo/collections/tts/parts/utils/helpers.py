@@ -719,6 +719,7 @@ def regulate_len(
         dec_lens = reps.sum(dim=1)
 
     max_len = dec_lens.max()
+    reps = reps.float() # cast it into float
     reps_cumsum = torch.cumsum(torch.nn.functional.pad(reps, (1, 0, 0, 0), value=0.0), dim=1)[:, None, :]
     reps_cumsum = reps_cumsum.to(dtype=dtype, device=enc_out.device)
 
