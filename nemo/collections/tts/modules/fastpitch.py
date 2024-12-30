@@ -268,7 +268,6 @@ class FastPitchModule(NeuralModule, adapter_mixins.AdapterModuleMixin):
 
         return spk_emb
 
-    @typecheck()
     def forward(
         self,
         *,
