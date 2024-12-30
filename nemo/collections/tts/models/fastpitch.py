@@ -302,6 +302,7 @@ class FastPitchModel(SpectrogramGenerator, Exportable, FastPitchAdapterModelMixi
             # reference_* data is used for multi-speaker FastPitch training
             "reference_spec": NeuralType(('B', 'D', 'T_spec'), MelSpectrogramType(), optional=True),
             "reference_spec_lens": NeuralType(('B'), LengthsType(), optional=True),
+            "maxlen": NeuralType(optional=True),
         }
     )
     def forward(
@@ -319,6 +320,7 @@ class FastPitchModel(SpectrogramGenerator, Exportable, FastPitchAdapterModelMixi
         input_lens=None,
         reference_spec=None,
         reference_spec_lens=None,
+        maxlen: Optional[int] = None
     ):
         return self.fastpitch(
             text=text,
@@ -333,6 +335,7 @@ class FastPitchModel(SpectrogramGenerator, Exportable, FastPitchAdapterModelMixi
             input_lens=input_lens,
             reference_spec=reference_spec,
             reference_spec_lens=reference_spec_lens,
+            maxlen=maxlen
         )
 
     @typecheck(output_types={"spect": NeuralType(('B', 'D', 'T_spec'), MelSpectrogramType())})
