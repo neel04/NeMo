@@ -287,24 +287,6 @@ class FastPitchModel(SpectrogramGenerator, Exportable, FastPitchAdapterModelMixi
         x = torch.tensor(tokens).unsqueeze_(0).long().to(self.device)
         return x
 
-    @typecheck(
-        input_types={
-            "text": NeuralType(('B', 'T_text'), TokenIndex()),
-            "durs": NeuralType(('B', 'T_text'), TokenDurationType()),
-            "pitch": NeuralType(('B', 'T_audio'), RegressionValuesType()),
-            "energy": NeuralType(('B', 'T_audio'), RegressionValuesType(), optional=True),
-            "speaker": NeuralType(('B'), Index(), optional=True),
-            "pace": NeuralType(optional=True),
-            "spec": NeuralType(('B', 'D', 'T_spec'), MelSpectrogramType(), optional=True),
-            "attn_prior": NeuralType(('B', 'T_spec', 'T_text'), ProbsType(), optional=True),
-            "mel_lens": NeuralType(('B'), LengthsType(), optional=True),
-            "input_lens": NeuralType(('B'), LengthsType(), optional=True),
-            # reference_* data is used for multi-speaker FastPitch training
-            "reference_spec": NeuralType(('B', 'D', 'T_spec'), MelSpectrogramType(), optional=True),
-            "reference_spec_lens": NeuralType(('B'), LengthsType(), optional=True),
-            "maxlen": NeuralType(optional=True),
-        }
-    )
     def forward(
         self,
         *,

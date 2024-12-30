@@ -243,7 +243,6 @@ class FFTransformerDecoder(NeuralModule):
             "mask": NeuralType(('B', 'T', 'D'), MaskType()),
         }
 
-    @typecheck()
     def forward(self, input, seq_lens, conditioning=None, maxlen: Optional[int] = None):
         return self._forward(input, mask_from_lens(seq_lens, maxlen).unsqueeze(2), conditioning)
 
