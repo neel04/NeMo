@@ -235,6 +235,7 @@ class FastPitchModule(NeuralModule, adapter_mixins.AdapterModuleMixin):
             "input_lens": NeuralType(('B'), LengthsType(), optional=True),
             "reference_spec": NeuralType(('B', 'D', 'T_spec'), MelSpectrogramType(), optional=True),
             "reference_spec_lens": NeuralType(('B'), LengthsType(), optional=True),
+            "maxlen": NeuralType(optional=True)
         }
 
     @property
