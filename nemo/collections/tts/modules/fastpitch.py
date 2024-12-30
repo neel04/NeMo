@@ -42,6 +42,7 @@
 # OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+from typing import Optional
 import torch
 
 from nemo.collections.tts.modules.submodules import ConditionalInput, ConditionalLayerNorm
@@ -282,6 +283,7 @@ class FastPitchModule(NeuralModule, adapter_mixins.AdapterModuleMixin):
         input_lens=None,
         reference_spec=None,
         reference_spec_lens=None,
+        maxlen: Optional[int] = None
     ):
 
         if not self.learn_alignment and self.training:
@@ -365,7 +367,7 @@ class FastPitchModule(NeuralModule, adapter_mixins.AdapterModuleMixin):
             )
 
         # Output FFT
-        dec_out, _ = self.decoder(input=len_regulated, seq_lens=dec_lens, conditioning=spk_emb)
+        dec_out, _ = self.decoder(input=len_regulated, seq_lens=dec_lens, conditioning=spk_emb, maxlen=maxlen)
         spect = self.proj(dec_out).transpose(1, 2)
         return (
             spect,

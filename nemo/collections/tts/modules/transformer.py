@@ -244,8 +244,8 @@ class FFTransformerDecoder(NeuralModule):
         }
 
     @typecheck()
-    def forward(self, input, seq_lens, conditioning=None):
-        return self._forward(input, mask_from_lens(seq_lens).unsqueeze(2), conditioning)
+    def forward(self, input, seq_lens, conditioning=None, maxlen: Optional[int] = None):
+        return self._forward(input, mask_from_lens(seq_lens, maxlen).unsqueeze(2), conditioning)
 
     def _forward(self, inp, mask, conditioning):
         pos_seq = torch.arange(inp.size(1), device=inp.device).to(inp.dtype)

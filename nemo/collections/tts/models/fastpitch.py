@@ -343,6 +343,7 @@ class FastPitchModel(SpectrogramGenerator, Exportable, FastPitchAdapterModelMixi
         pace: float = 1.0,
         reference_spec: Optional['torch.tensor'] = None,
         reference_spec_lens: Optional['torch.tensor'] = None,
+        maxlen: Optional[int] = None
     ) -> torch.tensor:
         if self.training:
             logging.warning("generate_spectrogram() is meant to be called in eval mode.")
@@ -356,6 +357,7 @@ class FastPitchModel(SpectrogramGenerator, Exportable, FastPitchAdapterModelMixi
             pace=pace,
             reference_spec=reference_spec,
             reference_spec_lens=reference_spec_lens,
+            maxlen=maxlen
         )
         return spect
 
